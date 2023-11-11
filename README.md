@@ -4,4 +4,4 @@ Online playground: https://peterroe.github.io/lissajous-curve-table
 
 ## Preview
 
-<img src="./demo.gif" />
+<img src="./demo.png" />
