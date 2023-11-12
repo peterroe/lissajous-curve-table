@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { onMounted, reactive, ref, watchEffect } from 'vue'
+import { onMounted, ref } from 'vue'
 import gsap from 'gsap'
 
 const colors = ['#ec6866', '#f2873d', '#f3c430', '#52d67a', '#609bf4', '#7a82f1', '#b67cf5']
 
-let arr = new Array(7).fill(0).map(it => reactive({
-  left: 0,
-  top: 1,
+let arr = new Array(7).fill(0).map(it => ({
+  x: 0,
+  y: 1,
 }))
 
 arr.forEach((it, i) => {
@@ -14,20 +14,20 @@ arr.forEach((it, i) => {
     defaults: {
       duration: 0.4 * (i + 1),
     }
-  }).to(it, { left: 1, ease: 'sine.in' })
-    .to(it, { left: 2, ease: 'sine.out' })
-    .to(it, { left: 1, ease: 'sine.in' })
-    .to(it, { left: 0, ease: 'sine.out' }).repeat(-1)
+  }).to(it, { x: 1, ease: 'sine.in' })
+    .to(it, { x: 2, ease: 'sine.out' })
+    .to(it, { x: 1, ease: 'sine.in' })
+    .to(it, { x: 0, ease: 'sine.out' }).repeat(-1)
 
 
     gsap.timeline({
       defaults: {
         duration: 0.4 * (i + 1),
       }
-    }).to(it, { top: 2, ease: 'sine.out' })
-      .to(it, { top: 1, ease: 'sine.in' })
-      .to(it, { top: 0, ease: 'sine.out' })
-      .to(it, { top: 1, ease: 'sine.in' }).repeat(-1)
+    }).to(it, { y: 2, ease: 'sine.out' })
+      .to(it, { y: 1, ease: 'sine.in' })
+      .to(it, { y: 0, ease: 'sine.out' })
+      .to(it, { y: 1, ease: 'sine.in' }).repeat(-1)
 })
 
 function blendColors(color1, color2) {
@@ -59,10 +59,10 @@ const shuffleJ = new Array(7).fill(0).map((_, i) => i)
 const draw = (ctx: CanvasRenderingContext2D) => {
     shuffleI.forEach((iOrder, i) => {
       shuffleJ.forEach((jOrder, j) => {
-        const left = Math.round(arr[iOrder].left * 40)
-        const top = Math.round(arr[jOrder].top * 40)
+        const x = Math.round(arr[iOrder].x * 40)
+        const y = Math.round(arr[jOrder].y * 40)
         ctx.beginPath();
-        ctx.arc(left + 110 * i + 30, top + 110 * j + 30, 1.5, 0, 2 * Math.PI)
+        ctx.arc(x + 110 * i + 30, y + 110 * j + 30, 1.5, 0, 2 * Math.PI)
         ctx.fillStyle = blendColors(colors[i], colors[j]);
         ctx.fill(); // 填充颜色
       })
