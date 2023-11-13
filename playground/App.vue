@@ -9,7 +9,8 @@ let arr = new Array(7).fill(0).map(it => ({
   y: 1,
 }))
 
-arr.forEach((it, i) => {
+function startAnimation() {
+  arr.forEach((it, i) => {
   gsap.timeline({
     defaults: {
       duration: 0.4 * (i + 1),
@@ -29,7 +30,15 @@ arr.forEach((it, i) => {
       .to(it, { y: 0, ease: 'sine.out' })
       .to(it, { y: 1, ease: 'sine.in' }).repeat(-1)
 })
+}
 
+if ('requestIdleCallback' in window) {
+  window.requestIdleCallback(startAnimation);
+} else {
+  setTimeout(() => {
+    startAnimation()
+  }, 300);
+}
 function blendColors(color1, color2) {
     // 将 HEX 转换为 RGB
     const rgb1 = parseInt(color1.slice(1), 16);
